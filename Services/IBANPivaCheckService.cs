@@ -6,6 +6,7 @@ namespace VATChecker.WebAPI.Services
 {
     public class IBANPivaCheckService : IPivaCheckService
     {
+        // Per fare una sola richiesta POST
         private HtmlDocument Doc { get; set; }
 
         public async Task<PivaDetails> GetDetails(string input)
@@ -28,24 +29,27 @@ namespace VATChecker.WebAPI.Services
             return piva;
         }
 
+        // Per cambiare XPath guardare l'HTML dalla risposta
         private string GetTextFromTable(int row)
         {
             return Doc.DocumentNode.SelectSingleNode($"//table[1]//tr[{row}]//td[2]").InnerText;
         }
 
+        /// <summary>
+        /// Metodo per il controllo della partita iva, setta Doc per l'uso successivo.
+        /// </summary>
+        /// <param name="input">Partita iva da controllare.</param>
         private async Task<bool> ValidityCheck(string input)
         {
             using var httpClient = new HttpClient();
 
-            // dizionario per formattare i dati per la richiesta POST
+            // Dizionario per formattare i dati necessari per la richiesta POST a iban.com
             var formData = new Dictionary<string, string>
             {
                 { "vat_id", input }
             };
             var body = new FormUrlEncodedContent(formData);
             using var response = await httpClient.PostAsync("https://www.iban.com/vat-checker", body);
-
-            // read the response content as a string
             string htmlText = await response.Content.ReadAsStringAsync();
             var document = new HtmlDocument();
             document.LoadHtml(htmlText);
