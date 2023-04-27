@@ -29,7 +29,7 @@ namespace VATChecker.WebAPI.Services
             return piva;
         }
 
-        // Per cambiare XPath guardare l'HTML dalla risposta
+        // Per cambiare XPath guardare l'HTML dalla risposta, non dalla pagina
         private string GetTextFromTable(int row)
         {
             return Doc.DocumentNode.SelectSingleNode($"//table[1]//tr[{row}]//td[2]").InnerText;
