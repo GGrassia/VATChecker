@@ -11,6 +11,7 @@ namespace VATChecker.WebAPI.Services
 
         public async Task<PivaDetails> GetDetails(string input)
         {
+            // Check anche qui in caso qualcuno riutilizzasse il servizio senza il controller
             if (string.IsNullOrEmpty(input) | !await ValidityCheck(input))
             {
                 return new PivaDetails { IsValid = false };

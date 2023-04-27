@@ -7,7 +7,7 @@ namespace VATChecker.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    // GET api/<InfoPivaController>
+    // GET api/<InfoPiva>
     public class InfoPivaController : ControllerBase
     {
         private readonly IPivaCheckService _pivaCheckService;
@@ -18,9 +18,15 @@ namespace VATChecker.WebAPI.Controllers
         }
 
         // Controlla la validità della partita iva e restituisce valori associati in caso di p.iva valida.
+        // Potrebbe valere la pena una struct con singolo field per far serializzare in json gli errori in futuro
         [HttpGet]
-        public async Task<PivaDetails> GetInfo(string piva)
+        public async Task<ActionResult<PivaDetails>> GetInfo(string piva)
         {
+            if (string.IsNullOrEmpty(piva))
+            {
+                return BadRequest("Il numero di P.iva è necessario");
+            }
+
             return await _pivaCheckService.GetDetails(piva);
         }
     }
