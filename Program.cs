@@ -6,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IPivaCheckService, IBANPivaCheckService>();
+
+// Non è necessario mantenere uno stato
+builder.Services.AddTransient<IPivaCheckService, IBANPivaCheckService>();
 
 var app = builder.Build();
 

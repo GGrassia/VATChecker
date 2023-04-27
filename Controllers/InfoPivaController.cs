@@ -7,7 +7,7 @@ namespace VATChecker.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    // POST api/<InfoPivaController>
+    // GET api/<InfoPivaController>
     public class InfoPivaController : ControllerBase
     {
         private readonly IPivaCheckService _pivaCheckService;

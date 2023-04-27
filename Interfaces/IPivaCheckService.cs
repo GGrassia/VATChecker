@@ -10,7 +10,7 @@ namespace VATChecker.WebAPI.Interfaces
         /// <summary>
         /// Ottieni i dettagli di una partita iva.
         /// </summary>
-        /// <param name="input"> P.IVA compreso prefisso nazionale. </param>
+        /// <param name="input"> Partita iva compreso prefisso nazionale. </param>
         Task<PivaDetails> GetDetails(string input);
     }
 }

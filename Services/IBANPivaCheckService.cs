@@ -43,7 +43,7 @@ namespace VATChecker.WebAPI.Services
         {
             using var httpClient = new HttpClient();
 
-            // Dizionario per formattare i dati necessari per la richiesta POST a iban.com
+            // Dizionario per formattare correttamente i dati necessari per la richiesta POST a iban.com
             var formData = new Dictionary<string, string>
             {
                 { "vat_id", input }
@@ -55,7 +55,7 @@ namespace VATChecker.WebAPI.Services
             document.LoadHtml(htmlText);
             Doc = document;
 
-            // parsing dell'HTML per vedere se la Piva è valida
+            // Parsing dell'HTML per vedere se la Piva è valida
             var table = Doc.DocumentNode.SelectSingleNode("//table//strong[contains(text(), 'VALID')]/text()").InnerText;
             return table != null && table == "VALID";
         }
